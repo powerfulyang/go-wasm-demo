@@ -1,2 +1,5 @@
 .idea
 main.wasm
+
+tiny-wasi.wasm
+tiny-js.wasm

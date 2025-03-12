@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"compress/gzip"
 	"encoding/base64"
+	"fmt"
 	"syscall/js"
 )
 
@@ -61,4 +62,6 @@ func main() {
 	js.Global().Set("gzipCompress", js.FuncOf(gzipCompress))
 	js.Global().Set("gunzipCompress", js.FuncOf(gunzipCompress))
 	<-c
+
+	fmt.Println("WASM Go Initialized")
 }
