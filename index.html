@@ -1,0 +1,45 @@
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <script src="wasm_exec.js"></script>
+    <script>
+      const go = new Go();
+      WebAssembly.instantiateStreaming(fetch("main.wasm"), go.importObject).then((result) => {
+        go.run(result.instance);
+      });
+    </script>
+    <title>Go WebAssembly</title>
+</head>
+<body>
+    <div id="app"></div>
+    <label>
+        Enter content:
+        <textarea id="input" rows="15" style="width: 100%"></textarea>
+    </label>
+    <br>
+    <button onclick="gzip()">gzip</button>
+    <button onclick="gunzip()">gunzip</button>
+    <br>
+    <label>
+        Decompressed content:
+        <textarea id="output" readonly rows="15" style="width: 100%"></textarea>
+    </label>
+</body>
+</html>
+
+<script>
+    function gzip() {
+        const input = document.querySelector('#input');
+        const content = input.value;
+        const compressed = gzipCompress(content);
+        const app = document.querySelector('#app');
+        app.innerHTML = compressed;
+    }
+    function gunzip() {
+        const app = document.querySelector('#app');
+        const content = app.innerHTML;
+        const decompressed = gunzipCompress(content);
+        const input = document.querySelector('#output');
+        input.value = decompressed;
+    }
+</script>
